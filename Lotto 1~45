@@ -1,0 +1,36 @@
+//로또 프로그램 만들기 
+//조건
+//1.1~45 중의 숫자 중 6개를 랜덤하게 뽑는 프로그램을 작성하시오.
+//2.중복된 숫자를 제거하는 로직이 포함되어야 함.
+
+
+
+//배열을 만든다 (45개의 숫자가 들어가는) 자리를 만들었기에 아직 까진 null값이다.
+		int[] numbers = new int[45];
+
+//null 값인 배열을 채워준다.
+		for (int i = 0; i < numbers.length; i++) {
+			numbers[i] = i + 1; // 이렇게하면 index 0의 값이 1이 되면서 1~45까지의 숫자가 들어가게 된다.
+		}
+
+//6개의 랜덤의 숫자를 뽑아야하기 때문에 앞서 설정해둔 배열에서 무작위 순서로 만들어야한다.
+		for (int i = 0; i < 6; i++) { // 6개만 필요하기에 i<6으로 설정한다. (index 0~5)
+			int randomN = (int) (Math.random() * 45); // 0~44까지 랜덤의 숫자가 randomN 변수에 배정된다.
+			// 섞기 위해 필요한 빈 변수통
+			int tmp = 0;
+			tmp = numbers[i]; // tmp에 numbers[i]의 값 넣어노고
+			numbers[i] = numbers[randomN]; // numbers[i] 에는 랜덤의인덱스 숫자가 있는 numbers[randomN]을 넣는다.
+			numbers[randomN] = tmp;
+		}
+//섞은 index0~5를 호출하면서 번호를 확인한다.		
+		System.out.println("로또 첫번째 번호는 : " + numbers[0]);
+		System.out.println("로또 두번째 번호는 : " + numbers[1]);
+		System.out.println("로또 세번째 번호는 : " + numbers[2]);
+		System.out.println("로또 네번째 번호는 : " + numbers[3]);
+		System.out.println("로또 다섯번째 번호는 : " + numbers[4]);
+		System.out.println("로또 여섯번째 번호는 : " + numbers[5]);
+		System.out.println("최종 로또 번호는 : " + numbers[0] + " " + numbers[1] + " " + numbers[2] + " " + numbers[3] + " "
+				+ numbers[4] + " " + numbers[5]);
+
+	}
+}
