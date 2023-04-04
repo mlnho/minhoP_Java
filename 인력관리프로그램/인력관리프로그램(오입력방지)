@@ -1,0 +1,156 @@
+//Step 1
+
+import java.util.Scanner;
+
+public class Class_0404_Quiz2_main {
+	public static void main(String[] args) {
+
+//인력관리프로그램
+//각 인원인 이름, 주소, 성별을 입력 받음. 주소는 서울, 경기, 강원, 충청, 전라, 경상 6개만 사용하기 입력
+//입력된 데이터는 전체 출력, 지역별 인구 수 출력, 성별 인구 수 출력
+
+		Scanner scanner = new Scanner(System.in);
+
+// 배열 생성 + 각 배열 인덱스에 클래스를 삽입한다.
+		Class_0404_Quiz2[] human = new Class_0404_Quiz2[10];  //10명의 데이터를 받을 것이다.
+
+// 데이터를 입력한다.
+		for (int i = 0; i < human.length; i++) {
+			human[i] = new Class_0404_Quiz2(); // 앞으로 들어올 인덱스에 클래스를 지정해준다.
+			human[i].inputData();
+
+		}
+
+//지금까지 받은 데이터를 전체 출력
+		for (int i = 0; i < human.length; i++) {
+			System.out
+					.println("직원의 이름은 : " + human[i].name + ", 주소는 : " + human[i].city + ", 성별은 : " + human[i].gender);
+		}
+
+//지역별 인구 수 출력
+// 계산
+		// 해결: 먼저 총 지역별 총값의 변수들을 만들고, 반복문을 통해 클래스에서 축적해놨던 지역별 인구를 토탈에 넣는다.
+		int SeoulTotal = 0, GGTotal = 0, GWTotal = 0, CCTotal = 0, GLTotal = 0, GSTotal = 0;
+		for (int i = 0; i < human.length; i++) {
+			SeoulTotal = SeoulTotal + human[i].Seoul_N; // 서울 총 인구
+			GGTotal = GGTotal + human[i].GG_N; // 경기 총 인구
+			GWTotal = GWTotal + human[i].GW_N; // 강원 총 인구
+			CCTotal = CCTotal + human[i].CC_N; // 충청 총 인구
+			GLTotal = GLTotal + human[i].GL_N; // 전라도 총 인구
+			GSTotal = GSTotal + human[i].GS_N; // 경상도 총 인구
+		}
+
+		System.out.println("");
+		System.out.println("지역별 인구 수는 다음과 같습니다.");
+		System.out.println("서울 인구 수 : " + SeoulTotal);
+		System.out.println("경기 인구 수 : " + GGTotal);
+		System.out.println("강원 인구 수 : " + GWTotal);
+		System.out.println("충청 인구 수 : " + CCTotal);
+		System.out.println("전라 인구 수 : " + GLTotal);
+		System.out.println("경상 인구 수 : " + GSTotal);
+
+//성별 인구 수 출력
+		int ManTotal = 0, WomanTotal = 0;
+		for (int i = 0; i < human.length; i++) {
+			ManTotal = ManTotal + human[i].Man; // 총 남자 인구 수
+			WomanTotal = WomanTotal + human[i].Woman;// 총 여자 인구 수
+		}
+
+		System.out.println("");
+		System.out.println("성별 인구 수는 다음과 같습니다.");
+		System.out.println("남자 인구 수 : " + ManTotal);
+		System.out.println("여자 인구 수 : " + WomanTotal);
+
+	}
+}
+
+
+
+// ---------------여기는 클래스 (객체)
+
+import java.util.Scanner;
+
+public class Class_0404_Quiz2 {
+
+	Scanner scanner = new Scanner(System.in);
+	String name; // 이름
+	String city; // 주소
+	String gender; // 성별
+
+//지역, 이곳에 입력한 값들이 축적될 것이다.
+	int Seoul_N; // 서울
+	int GG_N; // 경기도
+	int GW_N; // 강원
+	int CC_N; // 충청
+	int GL_N; // 전라도
+	int GS_N; // 경상
+	int Man; // 남자
+	int Woman; // 여자
+
+//데이터입력받는 매소드
+	public void inputData() {
+		this.inputName();
+		this.inputCity();
+		this.inputGender();
+
+	}
+
+// 이름입력 매소드
+	public void inputName() {
+		System.out.println("이름을 입력해주세요.");
+		this.name = scanner.nextLine();
+	}
+
+// 주소입력 매소드 (서울,경기,강원,충청,전라,경상)
+	public void inputCity() {
+		System.out.println("주소 지역을 선택해주세요.");
+		System.out.println("1.서울");
+		System.out.println("2.경기");
+		System.out.println("3.강원");
+		System.out.println("4.충청");
+		System.out.println("5.전라");
+		System.out.println("6.경상");
+		System.out.println("주소 지역을 선택해주세요.");
+		String inputCityString = scanner.nextLine(); // 문자로받고
+
+		if (inputCityString.equals("1")) {
+			this.city = "서울";
+			Seoul_N++;
+		} else if (inputCityString.equals("2")) {
+			this.city = "경기";
+			GG_N++;
+		} else if (inputCityString.equals("3")) {
+			this.city = "강원";
+			GW_N++;
+		} else if (inputCityString.equals("4")) {
+			this.city = "충청";
+			CC_N++;
+		} else if (inputCityString.equals("5")) {
+			this.city = "전라";
+			GL_N++;
+		} else if (inputCityString.equals("6")) {
+			this.city = "경상";
+			GS_N++;
+		} else {
+			System.out.println("잘못 입력하셨습니다.");
+			inputCity(); //오입력으로 인해서 다시 함수로 돌아간다!!!
+		}
+	}
+
+// 성별입력 매소드
+	public void inputGender() {
+		System.out.println("성별을 선택해주세요.");
+		System.out.println("1. 남자");
+		System.out.println("2. 여자");
+		String inputGenderString = scanner.nextLine();
+		if (inputGenderString.equals("1")) {
+			this.gender = "남자";
+			Man++;
+		} else if (inputGenderString.equals("2")) {
+			this.gender = "여자";
+			Woman++;
+		} else {
+			inputGender(); //숫자를 제외한 오입력시 다시 함수로 돌아가기
+	}
+
+}
